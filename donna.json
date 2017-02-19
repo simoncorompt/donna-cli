@@ -1,0 +1,36 @@
+{
+  "instructions": [
+    {
+      "action": "open",
+      "args": {
+        "file": "/",
+        "app": "Atom"
+      }
+    },
+    {
+      "action": "open",
+      "args": {
+        "file": "src/Donna.js",
+        "app": "Atom"
+      }
+    },
+    {
+      "action": "open",
+      "args": {
+        "app": "Sketch"
+      }
+    },
+    {
+      "action": "open",
+      "args": {
+        "app": "Mamp Pro"
+      }
+    },
+    {
+      "action": "run",
+      "args": {
+        "cmd": "gulp"
+      }
+    }
+  ]
+}
