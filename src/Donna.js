@@ -1,4 +1,5 @@
 const { getActions, getInstructions } = require('./utils/fileSystem')
+const { sequence } = require('./utils/promises')
 
 const executeInstruction = actions => instruction => new Promise((resolve, reject) => {
   if (actions[instruction.action])
@@ -9,6 +10,6 @@ const executeInstruction = actions => instruction => new Promise((resolve, rejec
 
 const Donna = () =>
   Promise.all([ getActions(), getInstructions() ])
-    .then(([ actions, instructions ]) => Promise.all(instructions.map(executeInstruction(actions))))
+    .then(([ actions, instructions ]) => sequence(instructions.map(executeInstruction(actions))))
 
 module.exports = Donna

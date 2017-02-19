@@ -12,9 +12,9 @@ const WindowManager = {
   //   cmd.run(`osascript -e 'tell application "System Events" to keystroke "t" using {command down}' ${newTabCommand}`)
   // },
 
-  run(command) {
+  run(command, callback = _ => _) {
     this.activate('Terminal')
-    cmd.run(`osascript -e 'tell application "Terminal" to do script with command "${command}" in front window'`)
+    cmd.get(`osascript -e 'tell application "Terminal" to do script with command "${command}" in front window'`, callback)
   }
 
 }

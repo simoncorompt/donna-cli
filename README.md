@@ -8,7 +8,7 @@ First, hire Donna with `npm install donna-cli -g`.
 
 Then all you need to do is create a `donna.json` file at the root of your project describing what you want Donna to take care of.
 
-```
+```json
 {
   "instructions": [
     {
@@ -33,7 +33,7 @@ Then all you need to do is create a `donna.json` file at the root of your projec
     {
       "action": "browse",
       "args": {
-        "url": "localhost:3000"
+        "url": "http://localhost:3000"
       }
     }
   ]
