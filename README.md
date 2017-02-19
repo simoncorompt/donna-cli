@@ -29,6 +29,12 @@ Then all you need to do is create a `donna.json` file at the root of your projec
       "args": {
         "cmd": "gulp"
       }
+    },
+    {
+      "action": "browse",
+      "args": {
+        "url": "localhost:3000"
+      }
     }
   ]
 }
@@ -38,7 +44,10 @@ Then just call `donna`. Yeah. Just like that.
 
 ## Actions
 
-Actions represent the type of task Donna can take care of. Right now you can use 2 different actions : `open` that fires up any app and `run` that executes any command in the terminal.
+Actions represent the type of task Donna can take care of.
+- `open` fires up any app
+- `run` executes any command in the terminal
+- `browse` opens any url to your favorite browser
 
 ## Args
 

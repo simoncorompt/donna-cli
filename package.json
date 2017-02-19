@@ -28,6 +28,7 @@
   "homepage": "https://github.com/simoncorompt/donna-cli#readme",
   "dependencies": {
     "load-json-file": "^2.0.0",
-    "node-cmd": "^2.0.0"
+    "node-cmd": "^2.0.0",
+    "open": "0.0.5"
   }
 }
