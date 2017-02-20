@@ -1,6 +1,6 @@
 const sequence = promises =>
-  promises.reduce((acc, promise) =>
-    acc.then(xs => promise.then(x => xs.concat([x]))),
+  promises.reduce((acc, getPromise) =>
+    acc.then(xs => getPromise().then(x => xs.concat([x]))),
     Promise.resolve([])
   )
 

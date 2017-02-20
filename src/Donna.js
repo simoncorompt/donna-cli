@@ -1,7 +1,7 @@
 const { getActions, getInstructions } = require('./utils/fileSystem')
 const { sequence } = require('./utils/promises')
 
-const executeInstruction = actions => instruction => new Promise((resolve, reject) => {
+const executeInstruction = actions => instruction => () => new Promise((resolve, reject) => {
   if (actions[instruction.action])
     resolve(actions[instruction.action](instruction.args))
   else
