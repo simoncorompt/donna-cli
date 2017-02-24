@@ -1,11 +1,11 @@
 const { getActions, getInstructions } = require('./utils/fileSystem')
 const { sequence } = require('./utils/promises')
 
-const executeInstruction = actions => instruction => () => new Promise((resolve, reject) => {
-  if (actions[instruction.action])
-    resolve(actions[instruction.action](instruction.args))
+const executeInstruction = actions => ([actionName, ...args]) => () => new Promise((resolve, reject) => {
+  if (actions[actionName])
+    resolve(actions[actionName](...args))
   else
-    reject(`Sorry, I dont understand the action "${instruction.action}" (yet).`)
+    reject(`Sorry, I dont understand the action "${actionName}" (yet).`)
 })
 
 const Donna = () =>

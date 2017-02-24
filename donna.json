@@ -1,23 +1,8 @@
 {
-  "instructions": [
-    {
-      "action": "open",
-      "args": {
-        "file": "/",
-        "app": "Atom"
-      }
-    },
-    {
-      "action": "run",
-      "args": {
-        "cmd": "sleep 3"
-      }
-    },
-    {
-      "action": "browse",
-      "args": {
-        "url": "http://localhost:3000"
-      }
-    }
-  ]
+    "do": [
+        ["open", "Atom", "/"],
+        ["run", "echo coucou"],
+        ["sleep", 3],
+        ["browse", "http://localhost:3000"]
+    ]
 }

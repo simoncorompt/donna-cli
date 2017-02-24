@@ -1,1 +1,1 @@
-module.exports = time => new Promise(resolve => setTimeout(resolve, time * 1000))
+module.exports = time => new Promise(resolve => setTimeout(resolve, parseInt(time) * 1000))

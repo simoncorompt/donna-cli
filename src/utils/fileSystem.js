@@ -17,7 +17,7 @@ const getActions = () => new Promise((resolve, reject) => {
 
 const getInstructions = () =>
   jsonLoader('donna.json')
-    .then(json => Array.isArray(json.instructions) ? json.instructions : [])
+    .then(json => Array.isArray(json.do) ? json.do : [])
     .catch(() => Promise.reject(
       'Sorry, there is nothing I can do... Provide me with a valid donna.json file so I can start working.'
     ))

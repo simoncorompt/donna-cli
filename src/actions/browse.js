@@ -1,8 +1,10 @@
 const open = require('open')
 
-const url = args => new Promise((resolve, reject) => {
-  if (args.url)
-    resolve(open(args.url, args.browser))
+const addProtocol = str => str.replace(/^(?!.*:\/\/)/, 'http://')
+
+const url = (url, browser) => new Promise((resolve, reject) => {
+  if (url)
+    resolve(open(addProtocol(url), browser))
   else
     reject('You need to specify a url!')
 })
