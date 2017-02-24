@@ -1,8 +1,0 @@
-{
-    "do": [
-        ["open", "Atom", "/"],
-        ["run", "echo coucou"],
-        ["sleep", 3],
-        ["browse", "http://localhost:3000"]
-    ]
-}
