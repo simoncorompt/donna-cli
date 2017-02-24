@@ -10,17 +10,17 @@ const executeInstruction = actions => ([actionName, ...args]) => () => new Promi
 })
 
 
-const execute = async () =>
+const execute = () =>
   Promise.all([ getActions(), getInstructions() ])
     .then(([actions, instructions]) => sequence(instructions.map(executeInstruction(actions))))
     .then(() => console.log('I\'m all done!'))
 
 
-const init = async () =>
+const init = () =>
   createConfig()
     .then(() => console.log('Your donna.json has been created!'))
 
-const add = async (...args) =>
+const add = (...args) =>
   addCommand(args)
     .then(() => console.log('Instruction added!', args))
 
