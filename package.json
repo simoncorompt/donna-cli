@@ -1,6 +1,6 @@
 {
   "name": "donna-cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Easily manage work environments for your projects",
   "main": "./src/index.js",
   "scripts": {
