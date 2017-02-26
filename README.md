@@ -6,41 +6,36 @@ Donna helps you get to work faster by opening all the apps and files you need fo
 
 First, hire Donna with `npm install donna-cli -g`.
 
-Then all you need to do is create a `donna.json` file at the root of your project describing what you want Donna to take care of.
+Then all you need to do is to create a `donna.json` file at the root of your project describing what you want Donna to take care of.
 
 ```json
 {
-  "instructions": [
-    {
-      "action": "open",
-      "args": {
-        "file": "/",
-        "app": "Atom"
-      }
-    },
-    {
-      "action": "open",
-      "args": {
-        "app": "Mamp Pro"
-      }
-    },
-    {
-      "action": "run",
-      "args": {
-        "cmd": "gulp"
-      }
-    },
-    {
-      "action": "browse",
-      "args": {
-        "url": "http://localhost:3000"
-      }
-    }
+  "do": [
+    ["open", "Atom", "/"],
+    ["open", "Mamp Pro"],
+    ["run", "gulp"],
+    ["sleep", 2],
+    ["browse", "localhost:3000"]
   ]
 }
 ```
 
 Then just call `donna`. Yeah. Just like that.
+
+
+## CLI commands
+
+Alternatively, you can use the cli to create your `donna.json`. Just open a Terminal at the root of your project and start listing what you want Donna to do for you.
+
+```bash
+donna init
+donna add open "Atom" /
+donna add open "Mamp Pro"
+donna add run "gulp"
+donna add sleep 2
+donna add browse localhost:3000
+```
+Then call `donna`, as usual.
 
 ## Actions
 
@@ -48,6 +43,7 @@ Actions represent the type of task Donna can take care of.
 - `open` fires up any app
 - `run` executes any command in the terminal
 - `browse` opens any url to your favorite browser
+- `sleep` waits a few second before running the next action
 
 ## Args
 
