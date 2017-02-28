@@ -37,6 +37,20 @@ donna add browse localhost:3000
 ```
 Then call `donna`, as usual.
 
+## Bookmarks
+
+It can be pretty exhausting having to cd into the right folder every time to use donna. Good news is: you don't have to. Next time you are in the root of a donna project, just bookmark it and it will create a global shortcut that you can use everywhere!
+
+```bash
+donna bookmark <bookmarkName>
+donna launch <bookmarkName>  # This one can be called from anywhere!!
+```
+
+Here are some other commands to help you manage your bookmarks:
+- `list` lists all your available bookmarks as well as the path to the bookmarked directory
+- `remove <bookmarkName>` deletes the bookmark from Donna's memory
+
+
 ## Actions
 
 Actions represent the type of task Donna can take care of.
