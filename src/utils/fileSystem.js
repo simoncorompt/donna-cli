@@ -64,7 +64,7 @@ const addCommand = (command) => {
 const checkDataFolder = () =>
   new Promise((resolve, reject) => {
     fs.stat(pathToPrefs, (err, stats) => {
-      err ? fs.mkdir(pref, resolve) : resolve()
+      err ? fs.mkdir(pathToPrefs, resolve) : resolve()
     })
   })
 
@@ -75,7 +75,7 @@ const getBookmarks = () =>
       You haven\'t added any bookmarks yet!
       You can do so by using the following command :
 
-      ----> donna bookmark <projectName>
+      --> donna bookmark <projectName>
 
       Remember you need to cd into the root of your project first 😙
     `))
@@ -114,7 +114,7 @@ const deleteBookmark = (args) => {
     Ooops! I cannot find any bookmark with that name...
     Try using the following command to list every of your bookmarks :
 
-    ----> donna list
+    --> donna list
               `)
             else
               return Object.assign({}, file, {
@@ -137,7 +137,7 @@ const launchBookmark = (args) => {
     ${args} doesn\'t exist as a bookmark.
     Maybe double check if it exists in the list using :
 
-    ---> donna list
+    --> donna list
           `)
         else
           return bookmarkToLaunch[0]
