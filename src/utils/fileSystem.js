@@ -40,13 +40,18 @@ const createConfig = () =>
       () => writeConfig(initialConfig)
     )
 
-const addCommand = (command) =>
-  jsonLoader('donna.json')
-    .catch(() => initialConfig)
-    .then(config => Object.assign({}, config, {
-      do: config.do.concat([command])
-    }))
-    .then(writeConfig)
+const addCommand = (command) => {
+  if (command.length === 0)
+    return Promise.reject('You need to specify an argument for that command!')
+  else
+    return jsonLoader('donna.json')
+      .catch(() => initialConfig)
+      .then(config => Object.assign({}, config, {
+        do: config.do.concat([command])
+      }))
+      .then(writeConfig)
+}
+
 
 
 module.exports = {

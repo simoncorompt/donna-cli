@@ -23,6 +23,7 @@ const init = () =>
 const add = (...args) =>
   addCommand(args)
     .then(() => console.log('Instruction added!', args))
+    .catch(err => console.log(err))
 
 
 const help = () => Promise.resolve(
