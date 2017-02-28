@@ -28,8 +28,14 @@ const add = (...args) =>
 const help = () => Promise.resolve(
   console.log(`
     donna --> execute your commands
+
     donna init --> create your donna.json
+
     donna add <action> <args> --> add an instruction
+            - open <appName> <fileName (optional)>
+            - run <any bash command>
+            - browse <url> <browser (optional)>
+            - sleep <seconds>
   `)
 )
 
