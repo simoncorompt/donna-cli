@@ -1,6 +1,6 @@
-const { getActions, getInstructions, createConfig, addCommand } = require('./utils/fileSystem')
+const { getActions, getInstructions, createConfig, addCommand, addBookmark, deleteBookmark, getBookmarks, launchBookmark } = require('./utils/fileSystem')
 const { sequence } = require('./utils/promises')
-
+const WindowManager = require('./utils/window-manager')
 
 const executeInstruction = actions => ([actionName, ...args]) => () => new Promise((resolve, reject) => {
   if (actions[actionName])
@@ -25,6 +25,25 @@ const add = (...args) =>
     .then(() => console.log('Instruction added!', args))
     .catch(err => console.log(err))
 
+const bookmark = (...args) =>
+  addBookmark(args)
+    .then(() => console.log('Bookmark added!'))
+    .catch(err => console.log(err))
+
+const list = () =>
+  getBookmarks()
+    .then(bookmarks => bookmarks.map(bookmark =>
+      console.log(`${bookmark.name} --> ${bookmark.path}`)))
+    .catch(err => console.log(err))
+
+const remove = (...args) =>
+  deleteBookmark(args)
+    .then(() => console.log('Bookmark deleted!'))
+    .catch(err => console.log(err))
+
+const launch = (...args) =>
+  launchBookmark(args)
+    .then(bookmark => WindowManager.runAsync(`cd ${bookmark.path} && donna`))
 
 const help = () => Promise.resolve(
   console.log(`
@@ -37,6 +56,15 @@ const help = () => Promise.resolve(
             - run <any bash command>
             - browse <url> <browser (optional)>
             - sleep <seconds>
+
+    donna bookmark <projectName> --> bookmark a project for global use
+
+    donna remove <projectName> --> delete a bookmark
+
+    donna list --> list all available bookmarks
+
+    donna launch <projectName> --> launch a bookmarked project
+
   `)
 )
 
@@ -45,5 +73,9 @@ module.exports = {
   default: execute,
   init,
   add,
+  bookmark,
+  remove,
+  list,
+  launch,
   help
 }
