@@ -1,14 +1,46 @@
 const os = require('os')
 const fs = require('fs')
 const path = require('path')
+const { exec } = require('child_process')
 const jsonLoader = require('load-json-file')
 const promisify = require('es6-promisify')
+const { mergeAllObjects } = require('./objects')
+const { sequence } = require('./promises')
+
 
 const pathToActions = path.join(__dirname, '..', 'actions')
 const pathToPrefs = path.join(os.homedir(), '.donna-cli/')
 
+const getGlobalNodePath = () => new Promise((resolve, reject) => {
+  exec('npm config get prefix', (err, stdout, stderr) => {
+    if (err) return reject(err)
+    resolve(stdout.trim())
+  })
+})
 
-const getActions = () => new Promise((resolve, reject) => {
+const getPlugin = nodePath => pluginName => () => new Promise((resolve, reject) => {
+  try {
+    resolve(require(path.join(nodePath, pluginName)))
+  } catch (e) {
+    reject(`
+      Hmmm, I don't know the ${pluginName} yet...
+      Maybe you forgot to install it first?
+      --> npm i -g ${pluginName}
+    `)
+  }
+})
+
+const getPluginsActions = () =>
+  Promise.all([
+    getGlobalNodePath(),
+    jsonLoader('donna.json')
+      .catch(() => ({}))
+      .then(config => config.plugins || [])
+  ])
+    .then(([nodePath, plugins]) => sequence(plugins.map(getPlugin(nodePath))))
+    .then(mergeAllObjects)
+
+const getInternalActions = () => new Promise((resolve, reject) => {
   fs.readdir(pathToActions, (err, files) => {
     if (err) reject('Oups. no actions have been found. That\'s odd.')
     resolve(
@@ -18,6 +50,10 @@ const getActions = () => new Promise((resolve, reject) => {
     )
   })
 })
+
+const getActions = () =>
+  Promise.all([getInternalActions(), getPluginsActions()]).then(mergeAllObjects)
+
 
 const getInstructions = () =>
   jsonLoader('donna.json')
