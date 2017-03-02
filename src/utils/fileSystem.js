@@ -18,17 +18,31 @@ const getGlobalNodePath = () => new Promise((resolve, reject) => {
   })
 })
 
-const getPlugin = nodePath => pluginName => () => new Promise((resolve, reject) => {
+const folderExists = path =>
+  promisify(fs.stat)(path)
+    .then(() => true)
+    .catch(() => false)
+
+const importPlugin = (nodePath, pluginName) => new Promise((resolve, reject) => {
   try {
     resolve(require(path.join(nodePath, pluginName)))
   } catch (e) {
     reject(`
-      Hmmm, I don't know the ${pluginName} yet...
-      Maybe you forgot to install it first?
-      --> npm i -g ${pluginName}
+      I was not able to get ${pluginName} 😶
     `)
   }
 })
+
+const getPlugin = (nodePath, pluginName) =>
+  folderExists(path.join(nodePath, pluginName))
+    .then(exists => exists
+      ? importPlugin(nodePath, pluginName)
+      : Promise.reject(`
+      Hmmm, I don't know the '${pluginName}' plugin yet...
+      Maybe you forgot to install it first?
+      --> npm i -g ${pluginName}
+      `)
+    )
 
 const getPluginsActions = () =>
   Promise.all([
@@ -37,7 +51,7 @@ const getPluginsActions = () =>
       .catch(() => ({}))
       .then(config => config.plugins || [])
   ])
-    .then(([nodePath, plugins]) => sequence(plugins.map(getPlugin(nodePath))))
+    .then(([nodePath, plugins]) => sequence(plugins.map(p => () => getPlugin(nodePath, p))))
     .then(mergeAllObjects)
 
 const getInternalActions = () => new Promise((resolve, reject) => {

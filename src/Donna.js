@@ -15,7 +15,6 @@ const execute = () =>
     .then(([actions, instructions]) => sequence(instructions.map(executeInstruction(actions))))
     .then(() => console.log('I\'m all done!'))
 
-
 const init = () =>
   createConfig()
     .then(() => console.log('Your donna.json has been created!'))
@@ -23,23 +22,19 @@ const init = () =>
 const add = (...args) =>
   addCommand(args)
     .then(() => console.log('Instruction added!', args))
-    .catch(err => console.log(err))
 
 const bookmark = (...args) =>
   addBookmark(args)
     .then(() => console.log('Bookmark added!'))
-    .catch(err => console.log(err))
 
 const list = () =>
   getBookmarks()
     .then(bookmarks => bookmarks.map(bookmark =>
       console.log(`${bookmark.name} --> ${bookmark.path}`)))
-    .catch(err => console.log(err))
 
 const remove = (...args) =>
   deleteBookmark(args)
     .then(() => console.log('Bookmark deleted!'))
-    .catch(err => console.log(err))
 
 const launch = (...args) =>
   launchBookmark(args)
